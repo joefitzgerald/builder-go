@@ -7,7 +7,7 @@
     "build"
   ],
   "main": "./lib/main",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/joefitzgerald/builder-go",
   "license": "Apache-2.0",
   "engines": {
