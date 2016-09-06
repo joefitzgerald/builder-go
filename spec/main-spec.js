@@ -1,6 +1,8 @@
 'use babel'
 /* eslint-env jasmine */
 
+import path from 'path'
+
 describe('builder-go', () => {
   let mainModule = null
 
@@ -47,7 +49,7 @@ describe('builder-go', () => {
       ]
 
       // WHEN I get the messages for these outputs
-      let messages = builder.getMessages(outputs, '/src/github.com/anonymous/sample-project')
+      let messages = builder.getMessages(outputs, path.join('src', 'github.com', 'anonymous', 'sample-project'))
 
       // THEN I expect only one message to be returned because they are the same
       expect(messages.length).toEqual(1)
@@ -55,7 +57,8 @@ describe('builder-go', () => {
       let message = messages[0]
       expect(message.name).toEqual('build')
       expect(message.text.indexOf('syntax error: unexpected semicolon or newline, expecting comma or }') === 0).toBeTruthy()
-      expect(message.filePath).toEqual('/src/github.com/anonymous/sample-project/the-file.go')
+      expect(message.filePath.indexOf('the-file.go') > 0).toBeTruthy() // file is in the path
+      expect(message.filePath.indexOf('sample-project') > 0).toBeTruthy() // cwd is in the path
       expect(message.row).toEqual('12')
     })
   })
